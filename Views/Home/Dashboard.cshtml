@@ -1,0 +1,32 @@
+@{
+    ViewBag.Title = "User Dashboard";
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0">User Dashboard</h3>
+                </div>
+                <div class="card-body">
+                    <div class="text-center py-5">
+                        <i class="fas fa-user-circle fa-5x text-primary mb-4"></i>
+                        <h2>Welcome back, @ViewBag.UserName!</h2>
+                        <p class="lead">You are successfully logged in.</p>
+
+                        <div class="mt-5">
+                            <h4>Quick Actions</h4>
+                            <div class="d-flex justify-content-center gap-3 mt-3">
+                                <button class="btn btn-outline-primary">
+                                    <i class="fas fa-user-edit"></i> Edit Profile
+                                </button>
+                                @Html.ActionLink("Logout", "Logout", "Account", null, new { @class = "btn btn-outline-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

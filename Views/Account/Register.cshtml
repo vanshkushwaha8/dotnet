@@ -1,88 +1,98 @@
-@model UserManagement.Models.User
+@model CrudApplication.Models.ViewModels.RegisterViewModel
 @{
-    ViewBag.Title = "Register";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "User Registration";
 }
 
-<div class="row justify-content-center">
-    <div class="col-md-8">
-        <div class="card">
-            <div class="card-header">
-                <h4 class="text-center">User Registration</h4>
-            </div>
-            <div class="card-body">
-                @using (Html.BeginForm("Register", "Account", FormMethod.Post))
-                {
-                    @Html.AntiForgeryToken()
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0">User Registration</h3>
+                </div>
+                <div class="card-body">
+                    @using (Html.BeginForm("Register", "Account", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
 
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.Name)
-                                @Html.TextBoxFor(model => model.Name, new { @class = "form-control", placeholder = "Enter full name" })
-                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Full Name <span class="text-danger">*</span></label>
+                                @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = "Enter full name" })
+                                @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
                             </div>
-
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.Email)
-                                @Html.TextBoxFor(model => model.Email, new { @class = "form-control", placeholder = "Enter email" })
-                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-                            </div>
-
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.Password)
-                                @Html.PasswordFor(model => model.Password, new { @class = "form-control", placeholder = "Enter password" })
-                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-                            </div>
-
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.PhoneNumber)
-                                @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control", placeholder = "Enter phone number" })
-                                @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Email Address <span class="text-danger">*</span></label>
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Enter email", type = "email" })
+                                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.Age)
-                                @Html.TextBoxFor(model => model.Age, new { @class = "form-control", type = "number" })
-                                @Html.ValidationMessageFor(model => model.Age, "", new { @class = "text-danger" })
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Password <span class="text-danger">*</span></label>
+                                @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Enter password" })
+                                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                             </div>
-
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.Gender)
-                                @Html.DropDownListFor(model => model.Gender, new SelectList(new[] { "Male", "Female", "Other" }),
-                                    "Select Gender", new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
-                            </div>
-
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.Skills)
-                                @Html.TextBoxFor(model => model.Skills, new { @class = "form-control", placeholder = "e.g., C#, SQL, JavaScript" })
-                                @Html.ValidationMessageFor(model => model.Skills, "", new { @class = "text-danger" })
-                            </div>
-
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.Education)
-                                @Html.TextBoxFor(model => model.Education, new { @class = "form-control", placeholder = "Highest education" })
-                                @Html.ValidationMessageFor(model => model.Education, "", new { @class = "text-danger" })
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Confirm Password <span class="text-danger">*</span></label>
+                                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", placeholder = "Confirm password" })
+                                @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
                             </div>
                         </div>
-                    </div>
 
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Address)
-                        @Html.TextAreaFor(model => model.Address, new { @class = "form-control", rows = "3", placeholder = "Enter full address" })
-                        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
-                    </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Phone Number</label>
+                                @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", placeholder = "Enter phone number" })
+                                @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label class="form-label">Age</label>
+                                @Html.TextBoxFor(m => m.Age, new { @class = "form-control", placeholder = "Age", type = "number" })
+                                @Html.ValidationMessageFor(m => m.Age, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label class="form-label">Gender</label>
+                                <select name="Gender" class="form-select">
+                                    <option value="">Select...</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                        </div>
 
-                    <button type="submit" class="btn btn-success btn-block">Register</button>
-                }
+                        <div class="mb-3">
+                            <label class="form-label">Skills</label>
+                            @Html.TextBoxFor(m => m.Skills, new { @class = "form-control", placeholder = "e.g., C#, JavaScript, SQL" })
+                        </div>
 
-                <div class="text-center mt-3">
-                    <p>Already have an account? @Html.ActionLink("Login here", "Login")</p>
+                        <div class="mb-3">
+                            <label class="form-label">Education</label>
+                            @Html.TextBoxFor(m => m.Education, new { @class = "form-control", placeholder = "e.g., Bachelor's in Computer Science" })
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Address</label>
+                            @Html.TextAreaFor(m => m.Address, new { @class = "form-control", rows = "3", placeholder = "Enter full address" })
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg">Register</button>
+                        </div>
+
+                        <div class="text-center mt-3">
+                            <p>Already have an account? @Html.ActionLink("Login here", "Login", "Account")</p>
+                        </div>
+                    }
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

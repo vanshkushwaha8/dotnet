@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CrudApplication.Models.Entities;
 
 namespace CrudApplication.Services
 {
-    internal interface IAuthService
+    public interface IAuthService
     {
+        Admin ValidateAdmin(string email, string password);
+        User ValidateUser(string emailOrPhone, string password);
+        User RegisterUser(User user, string password);
     }
 }

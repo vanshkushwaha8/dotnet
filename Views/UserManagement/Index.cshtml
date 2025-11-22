@@ -1,0 +1,84 @@
+@using System.Linq
+@model IEnumerable<CrudApplication.Models.Entities.User>
+@{
+    ViewBag.Title = "User Management";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2><i class="fas fa-users"></i> User Management</h2>
+        <div>
+            <span class="me-3">Welcome, <strong>@Session["AdminEmail"]</strong></span>
+            @Html.ActionLink("Logout", "Logout", "Admin", null, new { @class = "btn btn-outline-danger" })
+        </div>
+    </div>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["Success"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @TempData["Error"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+            <h4 class="mb-0">All Users</h4>
+            @Html.ActionLink("Create New User", "Create", null, new { @class = "btn btn-light" })
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Age</th>
+                            <th>Gender</th>
+                            <th>Created Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null && Model.Count() > 0)
+                        {
+                            foreach (var user in Model)
+                            {
+                                <tr>
+                                    <td>@user.UserId</td>
+                                    <td>@user.Name</td>
+                                    <td>@user.Email</td>
+                                    <td>@(user.PhoneNumber != null ? user.PhoneNumber : "N/A")</td>
+                                    <td>@(user.Age.HasValue ? user.Age.Value.ToString() : "N/A")</td>
+                                    <td>@(user.Gender != null ? user.Gender : "N/A")</td>
+                                    <td>@user.CreatedDate.ToString("MM/dd/yyyy")</td>
+                                    <td>
+                                        @Html.ActionLink("Details", "Details", new { id = user.UserId }, new { @class = "btn btn-info btn-sm" })
+                                        @Html.ActionLink("Edit", "Edit", new { id = user.UserId }, new { @class = "btn btn-warning btn-sm" })
+                                        @Html.ActionLink("Delete", "Delete", new { id = user.UserId }, new { @class = "btn btn-danger btn-sm" })
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="8" class="text-center">No users found</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

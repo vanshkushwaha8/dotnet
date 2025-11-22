@@ -1,0 +1,88 @@
+@model CrudApplication.Models.ViewModels.UserEditViewModel
+@{
+    ViewBag.Title = "Edit User";
+    string selectedGender = Model.Gender != null ? Model.Gender : "";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-10 offset-md-1">
+            <div class="card shadow">
+                <div class="card-header bg-warning">
+                    <h3 class="mb-0">Edit User</h3>
+                </div>
+                <div class="card-body">
+                    @using (Html.BeginForm("Edit", "UserManagement", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.HiddenFor(m => m.UserId)
+                        @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Full Name <span class="text-danger">*</span></label>
+                                @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Email Address <span class="text-danger">*</span></label>
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", type = "email" })
+                                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Phone Number</label>
+                                @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label class="form-label">Age</label>
+                                @Html.TextBoxFor(m => m.Age, new { @class = "form-control", type = "number" })
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label class="form-label">Gender</label>
+                                <select name="Gender" class="form-select">
+                                    <option value="">Select...</option>
+                                    <option value="Male" @(selectedGender == "Male" ? "selected" : "")>Male</option>
+                                    <option value="Female" @(selectedGender == "Female" ? "selected" : "")>Female</option>
+                                    <option value="Other" @(selectedGender == "Other" ? "selected" : "")>Other</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Skills</label>
+                            @Html.TextBoxFor(m => m.Skills, new { @class = "form-control" })
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Education</label>
+                            @Html.TextBoxFor(m => m.Education, new { @class = "form-control" })
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Address</label>
+                            @Html.TextAreaFor(m => m.Address, new { @class = "form-control", rows = "3" })
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">New Password</label>
+                            @Html.PasswordFor(m => m.NewPassword, new { @class = "form-control" })
+                            <small class="text-muted">Leave blank to keep current password</small>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary" })
+                            <button type="submit" class="btn btn-warning">Update User</button>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

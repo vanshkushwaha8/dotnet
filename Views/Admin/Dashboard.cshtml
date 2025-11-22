@@ -1,0 +1,63 @@
+@model IEnumerable<UserManagement.Models.User>
+@{
+    ViewBag.Title = "Admin Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>User Management Dashboard</h2>
+        @Html.ActionLink("Add New User", "Create", null, new { @class = "btn btn-primary" })
+    </div>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title mb-0">All Users</h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone Number</th>
+                            <th>Age</th>
+                            <th>Gender</th>
+                            <th>Education</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var user in Model)
+                        {
+                            <tr>
+                                <td>@user.Name</td>
+                                <td>@user.Email</td>
+                                <td>@user.PhoneNumber</td>
+                                <td>@user.Age</td>
+                                <td>@user.Gender</td>
+                                <td>@user.Education</td>
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        @Html.ActionLink("View", "Details", new { id = user.UserId }, new { @class = "btn btn-info btn-sm" })
+                                        @Html.ActionLink("Edit", "Edit", new { id = user.UserId }, new { @class = "btn btn-warning btn-sm" })
+                                        @Html.ActionLink("Delete", "Delete", new { id = user.UserId }, new { @class = "btn btn-danger btn-sm" })
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

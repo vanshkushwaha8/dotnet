@@ -160,3 +160,5 @@ C:\Users\swati\Downloads\CrudApplication\CrudApplication\CrudApplication\bin\Ent
 C:\Users\swati\Downloads\CrudApplication\CrudApplication\CrudApplication\bin\EntityFramework.SqlServer.dll
 C:\Users\swati\Downloads\CrudApplication\CrudApplication\CrudApplication\bin\EntityFramework.xml
 C:\Users\swati\Downloads\CrudApplication\CrudApplication\CrudApplication\bin\EntityFramework.SqlServer.xml
+C:\Users\swati\Downloads\CrudApplication\CrudApplication\CrudApplication\bin\Microsoft.AspNet.Identity.Core.dll
+C:\Users\swati\Downloads\CrudApplication\CrudApplication\CrudApplication\bin\Microsoft.AspNet.Identity.Core.xml

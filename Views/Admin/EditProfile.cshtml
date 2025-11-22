@@ -1,0 +1,174 @@
+@model UserManagement.Models.UserUpdateViewModel
+@{
+    ViewBag.Title = "Edit Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="text-center">Edit Profile</h4>
+                </div>
+                <div class="card-body">
+                    @using (Html.BeginForm("EditProfile", "User", FormMethod.Post, new { @class = "needs-validation", novalidate = "true" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.HiddenFor(model => model.UserId)
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5 class="text-primary mb-3">Personal Information</h5>
+
+                                <div class="form-group mb-3">
+                                    @Html.LabelFor(model => model.Name, new { @class = "form-label" })
+                                    @Html.TextBoxFor(model => model.Name, new
+                                    {
+                                        @class = "form-control",
+                                        placeholder = "Enter full name",
+                                        required = "required"
+                                    })
+                                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    @Html.LabelFor(model => model.Email, new { @class = "form-label" })
+                                    @Html.TextBoxFor(model => model.Email, new
+                                    {
+                                        @class = "form-control",
+                                        placeholder = "Enter email address",
+                                        type = "email",
+                                        required = "required"
+                                    })
+                                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    @Html.LabelFor(model => model.PhoneNumber, new { @class = "form-label" })
+                                    @Html.TextBoxFor(model => model.PhoneNumber, new
+                                    {
+                                        @class = "form-control",
+                                        placeholder = "Enter phone number",
+                                        required = "required"
+                                    })
+                                    @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    @Html.LabelFor(model => model.Age, new { @class = "form-label" })
+                                    @Html.TextBoxFor(model => model.Age, new
+                                    {
+                                        @class = "form-control",
+                                        type = "number",
+                                        min = "1",
+                                        max = "120",
+                                        placeholder = "Enter age"
+                                    })
+                                    @Html.ValidationMessageFor(model => model.Age, "", new { @class = "text-danger" })
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    @Html.LabelFor(model => model.Gender, new { @class = "form-label" })
+                                    @Html.DropDownListFor(model => model.Gender,
+                                        new SelectList(new[] {
+                                            new SelectListItem { Text = "Select Gender", Value = "" },
+                                            new SelectListItem { Text = "Male", Value = "Male" },
+                                            new SelectListItem { Text = "Female", Value = "Female" },
+                                            new SelectListItem { Text = "Other", Value = "Other" }
+                                        }, "Value", "Text"),
+                                        new
+                                             {
+                                            @class = "form-select",
+                                            required = "required"
+                                        })
+                                    @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <h5 class="text-primary mb-3">Account & Education</h5>
+
+                                <div class="form-group mb-3">
+                                    @Html.LabelFor(model => model.Password, new { @class = "form-label" })
+                                    @Html.PasswordFor(model => model.Password, new
+                                    {
+                                        @class = "form-control",
+                                        placeholder = "Enter new password (leave blank to keep current)"
+                                    })
+                                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                                    <small class="form-text text-muted">Leave password fields blank to keep current password.</small>
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    @Html.LabelFor(model => model.ConfirmPassword, new { @class = "form-label" })
+                                    @Html.PasswordFor(model => model.ConfirmPassword, new
+                                    {
+                                        @class = "form-control",
+                                        placeholder = "Confirm new password"
+                                    })
+                                    @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    @Html.LabelFor(model => model.Education, new { @class = "form-label" })
+                                    @Html.DropDownListFor(model => model.Education,
+                                        new SelectList(new[] {
+                                            new SelectListItem { Text = "Select Education", Value = "" },
+                                            new SelectListItem { Text = "High School", Value = "High School" },
+                                            new SelectListItem { Text = "Bachelor's Degree", Value = "Bachelor's Degree" },
+                                            new SelectListItem { Text = "Master's Degree", Value = "Master's Degree" },
+                                            new SelectListItem { Text = "PhD", Value = "PhD" },
+                                            new SelectListItem { Text = "Diploma", Value = "Diploma" },
+                                            new SelectListItem { Text = "Other", Value = "Other" }
+                                        }, "Value", "Text"),
+                                        new
+                                             {
+                                            @class = "form-select",
+                                            required = "required"
+                                        })
+                                    @Html.ValidationMessageFor(model => model.Education, "", new { @class = "text-danger" })
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    @Html.LabelFor(model => model.Skills, new { @class = "form-label" })
+                                    @Html.TextBoxFor(model => model.Skills, new
+                                    {
+                                        @class = "form-control",
+                                        placeholder = "e.g., C#, SQL, JavaScript, ASP.NET"
+                                    })
+                                    @Html.ValidationMessageFor(model => model.Skills, "", new { @class = "text-danger" })
+                                    <small class="form-text text-muted">Separate multiple skills with commas.</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <h5 class="text-primary mb-3">Address Information</h5>
+                                <div class="form-group mb-3">
+                                    @Html.LabelFor(model => model.Address, new { @class = "form-label" })
+                                    @Html.TextAreaFor(model => model.Address, new
+                                    {
+                                        @class = "form-control",
+                                        rows = "3",
+                                        placeholder = "Enter complete address",
+                                        required = "required"
+                                    })
+                                    @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-save"></i> Update Profile
+                            </button>
+                            @Html.ActionLink("Cancel", "Profile", null, new { @class = "btn btn-secondary btn-lg" })
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
